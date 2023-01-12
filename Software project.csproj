@@ -138,6 +138,9 @@
       <DependentUpon>PizzaModel.edmx</DependentUpon>
     </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="SessionTable.cs">
+      <DependentUpon>PizzaModel.tt</DependentUpon>
+    </Compile>
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />

@@ -14,9 +14,18 @@ namespace Software_project
     
     public partial class Customer
     {
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
+        public Customer()
+        {
+            this.SessionTables = new HashSet<SessionTable>();
+        }
+    
         public int CustomerID { get; set; }
         public string FirstName { get; set; }
         public string SecondName { get; set; }
         public Nullable<System.DateTime> DOB { get; set; }
+    
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<SessionTable> SessionTables { get; set; }
     }
 }

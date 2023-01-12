@@ -23,9 +23,34 @@
           <Property Name="Name" Type="varchar" MaxLength="50" />
           <Property Name="CollectionTime " Type="date" />
         </EntityType>
+        <EntityType Name="SessionTable">
+          <Key>
+            <PropertyRef Name="UsernameID" />
+          </Key>
+          <Property Name="UsernameID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Password" Type="varchar" MaxLength="50" />
+          <Property Name="CustomerID" Type="int" Nullable="false" />
+        </EntityType>
+        <Association Name="FK_SessionTable_ToCustomer">
+          <End Role="Customer" Type="Self.Customer" Multiplicity="1" />
+          <End Role="SessionTable" Type="Self.SessionTable" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Customer">
+              <PropertyRef Name="CustomerID" />
+            </Principal>
+            <Dependent Role="SessionTable">
+              <PropertyRef Name="CustomerID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <EntityContainer Name="Database1ModelStoreContainer">
           <EntitySet Name="Customer" EntityType="Self.Customer" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Order" EntityType="Self.Order" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="SessionTable" EntityType="Self.SessionTable" Schema="dbo" store:Type="Tables" />
+          <AssociationSet Name="FK_SessionTable_ToCustomer" Association="Self.FK_SessionTable_ToCustomer">
+            <End Role="Customer" EntitySet="Customer" />
+            <End Role="SessionTable" EntitySet="SessionTable" />
+          </AssociationSet>
         </EntityContainer>
       </Schema></edmx:StorageModels>
     <!-- CSDL content -->
@@ -34,6 +59,11 @@
         <EntityContainer Name="Database1Entities" annotation:LazyLoadingEnabled="true">
           <EntitySet Name="Customers" EntityType="Database1Model.Customer" />
           <EntitySet Name="Orders" EntityType="Database1Model.Order" />
+          <EntitySet Name="SessionTables" EntityType="Database1Model.SessionTable" />
+          <AssociationSet Name="FK_SessionTable_ToCustomer" Association="Database1Model.FK_SessionTable_ToCustomer">
+            <End Role="Customer" EntitySet="Customers" />
+            <End Role="SessionTable" EntitySet="SessionTables" />
+          </AssociationSet>
         </EntityContainer>
         <EntityType Name="Customer">
           <Key>
@@ -43,6 +73,7 @@
           <Property Name="FirstName" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
           <Property Name="SecondName" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
           <Property Name="DOB" Type="DateTime" Precision="0" />
+          <NavigationProperty Name="SessionTables" Relationship="Database1Model.FK_SessionTable_ToCustomer" FromRole="Customer" ToRole="SessionTable" />
         </EntityType>
         <EntityType Name="Order">
           <Key>
@@ -53,6 +84,27 @@
           <Property Name="Name" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
           <Property Name="CollectionTime_" Type="DateTime" Precision="0" />
         </EntityType>
+        <EntityType Name="SessionTable">
+          <Key>
+            <PropertyRef Name="UsernameID" />
+          </Key>
+          <Property Name="UsernameID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Password" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="CustomerID" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="Customer" Relationship="Database1Model.FK_SessionTable_ToCustomer" FromRole="SessionTable" ToRole="Customer" />
+        </EntityType>
+        <Association Name="FK_SessionTable_ToCustomer">
+          <End Type="Database1Model.Customer" Role="Customer" Multiplicity="1" />
+          <End Type="Database1Model.SessionTable" Role="SessionTable" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Customer">
+              <PropertyRef Name="CustomerID" />
+            </Principal>
+            <Dependent Role="SessionTable">
+              <PropertyRef Name="CustomerID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
       </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
@@ -76,6 +128,15 @@
                 <ScalarProperty Name="Name" ColumnName="Name" />
                 <ScalarProperty Name="Price" ColumnName="Price" />
                 <ScalarProperty Name="OrderID" ColumnName="OrderID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="SessionTables">
+            <EntityTypeMapping TypeName="Database1Model.SessionTable">
+              <MappingFragment StoreEntitySet="SessionTable">
+                <ScalarProperty Name="CustomerID" ColumnName="CustomerID" />
+                <ScalarProperty Name="Password" ColumnName="Password" />
+                <ScalarProperty Name="UsernameID" ColumnName="UsernameID" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
