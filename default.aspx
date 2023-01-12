@@ -17,9 +17,12 @@
                 <asp:LinkButton ID="LinkButton3" runat="server">Other meals</asp:LinkButton>
 &nbsp;&nbsp;&nbsp;&nbsp;
                 <asp:LinkButton ID="LinkButton4" runat="server">Support</asp:LinkButton>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                <asp:Button ID="Button1" runat="server" Text="Login" />
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                <asp:Button ID="Button2" runat="server" Text="Register ID" />
             </h3>
-            <asp:Image ID="Image1" runat="server" ImageUrl="~/images/nescot-9.jpg" />
-            <br />
+            <asp:Image ID="Image1" runat="server" ImageUrl="~/images/nescot-9.jpg" Width="916px" />
             <br />
             <br />
         </div>
