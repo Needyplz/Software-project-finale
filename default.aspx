@@ -10,7 +10,7 @@
     <form id="form1" runat="server">
         <div>
             <h3>NESCOT food collection&nbsp;&nbsp;
-                <asp:LinkButton ID="LinkButton1" runat="server" OnClick="LinkButton1_Click">Pizza</asp:LinkButton>
+                <asp:LinkButton ID="LinkButton1" runat="server" OnClick="LinkButton1_Click" Enabled="False">Pizza</asp:LinkButton>
 &nbsp;&nbsp;
                 <asp:LinkButton ID="LinkButton2" runat="server">Drinks</asp:LinkButton>
 &nbsp;&nbsp;

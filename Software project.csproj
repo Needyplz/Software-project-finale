@@ -81,10 +81,12 @@
     </Content>
     <Content Include="default.aspx" />
     <Content Include="Global.asax" />
+    <Content Include="images\21550_na.jpg" />
     <Content Include="images\front page.png" />
     <Content Include="images\Margherita-.jpg" />
     <Content Include="images\nescot-9.jpg" />
     <Content Include="images\photo-1578301807752-33631801f8aa.jfif" />
+    <Content Include="order screen.aspx" />
     <Content Include="order.aspx" />
     <Content Include="PizzaModel.Context.tt">
       <Generator>TextTemplatingFileGenerator</Generator>
@@ -96,6 +98,7 @@
       <DependentUpon>PizzaModel.edmx</DependentUpon>
       <LastGenOutput>PizzaModel.cs</LastGenOutput>
     </Content>
+    <Content Include="web forms\frmSession.aspx" />
     <Content Include="Web.config" />
   </ItemGroup>
   <ItemGroup>
@@ -111,6 +114,13 @@
     </Compile>
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
+    </Compile>
+    <Compile Include="order screen.aspx.cs">
+      <DependentUpon>order screen.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="order screen.aspx.designer.cs">
+      <DependentUpon>order screen.aspx</DependentUpon>
     </Compile>
     <Compile Include="order.aspx.cs">
       <DependentUpon>order.aspx</DependentUpon>
@@ -140,6 +150,13 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="SessionTable.cs">
       <DependentUpon>PizzaModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="web forms\frmSession.aspx.cs">
+      <DependentUpon>frmSession.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="web forms\frmSession.aspx.designer.cs">
+      <DependentUpon>frmSession.aspx</DependentUpon>
     </Compile>
   </ItemGroup>
   <ItemGroup>
