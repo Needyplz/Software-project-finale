@@ -19,7 +19,7 @@
             <br />
             <h1>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &nbsp;<asp:Label ID="lblNamePrice" runat="server" Text="Margherita - £3.60"></asp:Label>
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-                <asp:Label ID="Label1" runat="server" Text="Pepperoni - £3.90"></asp:Label>
+                <asp:Label ID="lblNamePrice2" runat="server" Text="Pepperoni - £3.90"></asp:Label>
             </h1>
             <p>
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
@@ -38,7 +38,7 @@
             <asp:Label ID="lblTotal" runat="server" Text="Total"></asp:Label>
         </h1>
         <p>
-            <asp:TextBox ID="txtTotal" runat="server"></asp:TextBox>
+            <asp:TextBox ID="txtTotal" runat="server" OnTextChanged="txtTotal_TextChanged"></asp:TextBox>
         </p>
     </form>
 </body>

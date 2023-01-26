@@ -14,21 +14,30 @@
           <Property Name="SecondName" Type="varchar" MaxLength="50" />
           <Property Name="DOB" Type="smalldatetime" />
         </EntityType>
+        <EntityType Name="EmployersTable">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" Nullable="false" />
+          <Property Name="Payment method" Type="varchar" MaxLength="50" />
+          <Property Name="Total" Type="smallmoney" />
+          <Property Name="OrderID" Type="int" Nullable="false" />
+        </EntityType>
         <EntityType Name="Order">
           <Key>
             <PropertyRef Name="OrderID" />
           </Key>
           <Property Name="OrderID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
-          <Property Name="Price" Type="smallmoney" />
+          <Property Name="Price" Type="varchar" MaxLength="50" />
           <Property Name="Name" Type="varchar" MaxLength="50" />
-          <Property Name="CollectionTime " Type="date" />
+          <Property Name="CollectionTime " Type="datetime" />
         </EntityType>
         <EntityType Name="SessionTable">
           <Key>
             <PropertyRef Name="UsernameID" />
           </Key>
           <Property Name="UsernameID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
-          <Property Name="Password" Type="varchar" MaxLength="50" />
+          <Property Name="PasswordID" Type="varchar" MaxLength="50" />
           <Property Name="CustomerID" Type="int" Nullable="false" />
         </EntityType>
         <Association Name="FK_SessionTable_ToCustomer">
@@ -45,6 +54,7 @@
         </Association>
         <EntityContainer Name="Database1ModelStoreContainer">
           <EntitySet Name="Customer" EntityType="Self.Customer" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="EmployersTable" EntityType="Self.EmployersTable" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Order" EntityType="Self.Order" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="SessionTable" EntityType="Self.SessionTable" Schema="dbo" store:Type="Tables" />
           <AssociationSet Name="FK_SessionTable_ToCustomer" Association="Self.FK_SessionTable_ToCustomer">
@@ -58,6 +68,7 @@
       <Schema Namespace="Database1Model" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
         <EntityContainer Name="Database1Entities" annotation:LazyLoadingEnabled="true">
           <EntitySet Name="Customers" EntityType="Database1Model.Customer" />
+          <EntitySet Name="EmployersTables" EntityType="Database1Model.EmployersTable" />
           <EntitySet Name="Orders" EntityType="Database1Model.Order" />
           <EntitySet Name="SessionTables" EntityType="Database1Model.SessionTable" />
           <AssociationSet Name="FK_SessionTable_ToCustomer" Association="Database1Model.FK_SessionTable_ToCustomer">
@@ -75,21 +86,30 @@
           <Property Name="DOB" Type="DateTime" Precision="0" />
           <NavigationProperty Name="SessionTables" Relationship="Database1Model.FK_SessionTable_ToCustomer" FromRole="Customer" ToRole="SessionTable" />
         </EntityType>
+        <EntityType Name="EmployersTable">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" />
+          <Property Name="Payment_method" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="Total" Type="Decimal" Precision="10" Scale="4" />
+          <Property Name="OrderID" Type="Int32" Nullable="false" />
+        </EntityType>
         <EntityType Name="Order">
           <Key>
             <PropertyRef Name="OrderID" />
           </Key>
           <Property Name="OrderID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="Price" Type="Decimal" Precision="10" Scale="4" />
+          <Property Name="Price" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
           <Property Name="Name" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
-          <Property Name="CollectionTime_" Type="DateTime" Precision="0" />
+          <Property Name="CollectionTime_" Type="DateTime" Precision="3" />
         </EntityType>
         <EntityType Name="SessionTable">
           <Key>
             <PropertyRef Name="UsernameID" />
           </Key>
           <Property Name="UsernameID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="Password" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="PasswordID" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
           <Property Name="CustomerID" Type="Int32" Nullable="false" />
           <NavigationProperty Name="Customer" Relationship="Database1Model.FK_SessionTable_ToCustomer" FromRole="SessionTable" ToRole="Customer" />
         </EntityType>
@@ -121,6 +141,16 @@
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
+          <EntitySetMapping Name="EmployersTables">
+            <EntityTypeMapping TypeName="Database1Model.EmployersTable">
+              <MappingFragment StoreEntitySet="EmployersTable">
+                <ScalarProperty Name="OrderID" ColumnName="OrderID" />
+                <ScalarProperty Name="Total" ColumnName="Total" />
+                <ScalarProperty Name="Payment_method" ColumnName="Payment method" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
           <EntitySetMapping Name="Orders">
             <EntityTypeMapping TypeName="Database1Model.Order">
               <MappingFragment StoreEntitySet="Order">
@@ -135,7 +165,7 @@
             <EntityTypeMapping TypeName="Database1Model.SessionTable">
               <MappingFragment StoreEntitySet="SessionTable">
                 <ScalarProperty Name="CustomerID" ColumnName="CustomerID" />
-                <ScalarProperty Name="Password" ColumnName="Password" />
+                <ScalarProperty Name="PasswordID" ColumnName="PasswordID" />
                 <ScalarProperty Name="UsernameID" ColumnName="UsernameID" />
               </MappingFragment>
             </EntityTypeMapping>

@@ -12,12 +12,11 @@ namespace Software_project
     using System;
     using System.Collections.Generic;
     
-    public partial class SessionTable
+    public partial class EmployersTable
     {
-        public int UsernameID { get; set; }
-        public string PasswordID { get; set; }
-        public int CustomerID { get; set; }
-    
-        public virtual Customer Customer { get; set; }
+        public int Id { get; set; }
+        public string Payment_method { get; set; }
+        public Nullable<decimal> Total { get; set; }
+        public int OrderID { get; set; }
     }
 }

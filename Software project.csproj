@@ -85,6 +85,7 @@
     <Content Include="images\front page.png" />
     <Content Include="images\Margherita-.jpg" />
     <Content Include="images\nescot-9.jpg" />
+    <Content Include="images\oasis-summer.jpeg" />
     <Content Include="images\photo-1578301807752-33631801f8aa.jfif" />
     <Content Include="order screen.aspx" />
     <Content Include="order.aspx" />
@@ -111,6 +112,9 @@
     </Compile>
     <Compile Include="default.aspx.designer.cs">
       <DependentUpon>default.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="EmployersTable.cs">
+      <DependentUpon>PizzaModel.tt</DependentUpon>
     </Compile>
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>

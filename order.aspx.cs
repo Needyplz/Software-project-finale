@@ -45,8 +45,12 @@ namespace Software_project
 
             var newOrder = new Order();
 
-            newOrder.Name = lblNamePrice.Text;
-            //newOrder.Name = 
+            newOrder.Name = lblNamePrice2.Text;
+            newOrder.Price = txtTotal.Text;
+
+            dbOrder.Add(newOrder);
+            db.SaveChanges();
+            
         }
 
         protected void btnAddM_Click(object sender, EventArgs e)
@@ -68,6 +72,22 @@ namespace Software_project
 
 
             txtTotal.Text = "" + total;
+            
+            Database1Entities db = new Database1Entities();
+            var dbOrder = db.Orders;
+
+            var newOrder = new Order();
+
+            newOrder.Name = lblNamePrice.Text;
+            newOrder.Price = txtTotal.Text;
+
+            dbOrder.Add(newOrder);
+            db.SaveChanges();
+        }
+
+        protected void txtTotal_TextChanged(object sender, EventArgs e)
+        {
+
         }
     }
 

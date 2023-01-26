@@ -26,6 +26,7 @@ namespace Software_project
         }
     
         public virtual DbSet<Customer> Customers { get; set; }
+        public virtual DbSet<EmployersTable> EmployersTables { get; set; }
         public virtual DbSet<Order> Orders { get; set; }
         public virtual DbSet<SessionTable> SessionTables { get; set; }
     }

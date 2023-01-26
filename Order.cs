@@ -15,7 +15,7 @@ namespace Software_project
     public partial class Order
     {
         public int OrderID { get; set; }
-        public Nullable<decimal> Price { get; set; }
+        public string Price { get; set; }
         public string Name { get; set; }
         public Nullable<System.DateTime> CollectionTime_ { get; set; }
     }
