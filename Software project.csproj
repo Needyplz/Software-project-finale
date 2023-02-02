@@ -75,8 +75,8 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
-    <Content Include="App_Data\Database1.mdf" />
-    <Content Include="App_Data\Database1_log.ldf">
+    <Content Include="App_data\Database1.mdf" />
+    <Content Include="App_data\Database1_log.ldf">
       <DependentUpon>Database1.mdf</DependentUpon>
     </Content>
     <Content Include="default.aspx" />
@@ -94,6 +94,7 @@
       <LastGenOutput>PizzaModel.Context.cs</LastGenOutput>
       <DependentUpon>PizzaModel.edmx</DependentUpon>
     </Content>
+    <Content Include="PizzaModel.edmx.sql" />
     <Content Include="PizzaModel.tt">
       <Generator>TextTemplatingFileGenerator</Generator>
       <DependentUpon>PizzaModel.edmx</DependentUpon>
