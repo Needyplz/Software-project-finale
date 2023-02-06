@@ -4,65 +4,80 @@
   <edmx:Runtime>
     <!-- SSDL content -->
     <edmx:StorageModels>
-    <Schema Namespace="Database1Model.Store" Alias="Self" Provider="System.Data.SqlClient" ProviderManifestToken="2012" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
-  <EntityContainer Name="Database1ModelStoreContainer">
-    <EntitySet Name="Customers" EntityType="Database1Model.Store.Customers" store:Type="Tables" Schema="dbo" />
-    <EntitySet Name="EmployersTables" EntityType="Database1Model.Store.EmployersTables" store:Type="Tables" Schema="dbo" />
-    <EntitySet Name="Orders" EntityType="Database1Model.Store.Orders" store:Type="Tables" Schema="dbo" />
-    <EntitySet Name="SessionTables" EntityType="Database1Model.Store.SessionTables" store:Type="Tables" Schema="dbo" />
-    <AssociationSet Name="FK_SessionTable_ToCustomer" Association="Database1Model.Store.FK_SessionTable_ToCustomer">
-      <End Role="Customer" EntitySet="Customers" />
-      <End Role="SessionTable" EntitySet="SessionTables" />
-    </AssociationSet>
-  </EntityContainer>
-  <EntityType Name="Customers">
-    <Key>
-      <PropertyRef Name="CustomerID" />
-    </Key>
-    <Property Name="CustomerID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
-    <Property Name="FirstName" Type="varchar" Nullable="true" MaxLength="50" />
-    <Property Name="SecondName" Type="varchar" Nullable="true" MaxLength="50" />
-    <Property Name="DOB" Type="datetime" Nullable="true" />
-  </EntityType>
-  <EntityType Name="EmployersTables">
-    <Key>
-      <PropertyRef Name="Id" />
-    </Key>
-    <Property Name="Id" Type="int" Nullable="false" />
-    <Property Name="Payment_method" Type="varchar" Nullable="true" MaxLength="50" />
-    <Property Name="Total" Type="decimal" Nullable="true" Precision="10" Scale="4" />
-    <Property Name="OrderID" Type="int" Nullable="false" />
-  </EntityType>
-  <EntityType Name="Orders">
-    <Key>
-      <PropertyRef Name="OrderID" />
-    </Key>
-    <Property Name="OrderID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
-    <Property Name="Price" Type="varchar" Nullable="true" MaxLength="50" />
-    <Property Name="Name" Type="varchar" Nullable="true" MaxLength="50" />
-    <Property Name="CollectionTime_" Type="datetime" Nullable="true" />
-  </EntityType>
-  <EntityType Name="SessionTables">
-    <Key>
-      <PropertyRef Name="UsernameID" />
-    </Key>
-    <Property Name="UsernameID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
-    <Property Name="PasswordID" Type="varchar" Nullable="true" MaxLength="50" />
-    <Property Name="CustomerID" Type="int" Nullable="false" />
-  </EntityType>
-  <Association Name="FK_SessionTable_ToCustomer">
-    <End Role="Customer" Type="Database1Model.Store.Customers" Multiplicity="1" />
-    <End Role="SessionTable" Type="Database1Model.Store.SessionTables" Multiplicity="*" />
-    <ReferentialConstraint>
-      <Principal Role="Customer">
-        <PropertyRef Name="CustomerID" />
-      </Principal>
-      <Dependent Role="SessionTable">
-        <PropertyRef Name="CustomerID" />
-      </Dependent>
-    </ReferentialConstraint>
-  </Association>
-</Schema></edmx:StorageModels>
+    <Schema Namespace="Database1Model.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="Customers">
+          <Key>
+            <PropertyRef Name="CustomerID" />
+          </Key>
+          <Property Name="CustomerID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="FirstName" Type="varchar" MaxLength="50" />
+          <Property Name="SecondName" Type="varchar" MaxLength="50" />
+          <Property Name="DOB" Type="datetime" />
+        </EntityType>
+        <EntityType Name="EmployersTables">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" Nullable="false" />
+          <Property Name="Payment_method" Type="varchar" MaxLength="50" />
+          <Property Name="Total" Type="decimal" Precision="10" Scale="4" />
+          <Property Name="OrderID" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Orders">
+          <Key>
+            <PropertyRef Name="OrderID" />
+          </Key>
+          <Property Name="OrderID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Price" Type="varchar" MaxLength="50" />
+          <Property Name="Name" Type="varchar" MaxLength="50" />
+          <Property Name="CollectionTime_" Type="datetime" />
+        </EntityType>
+        <EntityType Name="SessionTables">
+          <Key>
+            <PropertyRef Name="UsernameID" />
+          </Key>
+          <Property Name="UsernameID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="PasswordID" Type="varchar" MaxLength="50" />
+          <Property Name="CustomerID" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Table">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Toppings">
+          <Key>
+            <PropertyRef Name="ToppingID" />
+          </Key>
+          <Property Name="ToppingID" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="OrderID" Type="nchar" MaxLength="10" />
+        </EntityType>
+        <Association Name="FK_SessionTable_ToCustomer">
+          <End Role="Customers" Type="Self.Customers" Multiplicity="1" />
+          <End Role="SessionTables" Type="Self.SessionTables" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Customers">
+              <PropertyRef Name="CustomerID" />
+            </Principal>
+            <Dependent Role="SessionTables">
+              <PropertyRef Name="CustomerID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="Database1ModelStoreContainer">
+          <EntitySet Name="Customers" EntityType="Self.Customers" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="EmployersTables" EntityType="Self.EmployersTables" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Orders" EntityType="Self.Orders" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="SessionTables" EntityType="Self.SessionTables" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Table" EntityType="Self.Table" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Toppings" EntityType="Self.Toppings" Schema="dbo" store:Type="Tables" />
+          <AssociationSet Name="FK_SessionTable_ToCustomer" Association="Self.FK_SessionTable_ToCustomer">
+            <End Role="Customers" EntitySet="Customers" />
+            <End Role="SessionTables" EntitySet="SessionTables" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema></edmx:StorageModels>
     <!-- CSDL content -->
     <edmx:ConceptualModels>
       <Schema Namespace="Database1Model" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
@@ -75,6 +90,8 @@
             <End Role="Customer" EntitySet="Customers" />
             <End Role="SessionTable" EntitySet="SessionTables" />
           </AssociationSet>
+          <EntitySet Name="Tables" EntityType="Database1Model.Table" />
+          <EntitySet Name="Toppings" EntityType="Database1Model.Topping" />
         </EntityContainer>
         <EntityType Name="Customer">
           <Key>
@@ -83,7 +100,7 @@
           <Property Name="CustomerID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="FirstName" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
           <Property Name="SecondName" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
-          <Property Name="DOB" Type="DateTime" Precision="0" />
+          <Property Name="DOB" Type="DateTime" Precision="3" />
           <NavigationProperty Name="SessionTables" Relationship="Database1Model.FK_SessionTable_ToCustomer" FromRole="Customer" ToRole="SessionTable" />
         </EntityType>
         <EntityType Name="EmployersTable">
@@ -125,6 +142,19 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <EntityType Name="Table">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Topping">
+          <Key>
+            <PropertyRef Name="ToppingID" />
+          </Key>
+          <Property Name="ToppingID" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="OrderID" Type="String" MaxLength="10" FixedLength="true" Unicode="true" />
+        </EntityType>
       </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
@@ -170,6 +200,21 @@
         </MappingFragment>
       </EntityTypeMapping>
     </EntitySetMapping>
+          <EntitySetMapping Name="Tables">
+            <EntityTypeMapping TypeName="Database1Model.Table">
+              <MappingFragment StoreEntitySet="Table">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Toppings">
+            <EntityTypeMapping TypeName="Database1Model.Topping">
+              <MappingFragment StoreEntitySet="Toppings">
+                <ScalarProperty Name="OrderID" ColumnName="OrderID" />
+                <ScalarProperty Name="ToppingID" ColumnName="ToppingID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
   </EntityContainerMapping>
 </Mapping></edmx:Mappings>
   </edmx:Runtime>

@@ -10,6 +10,8 @@
         <EntityTypeShape EntityType="Database1Model.Order" Width="1.5" PointX="8" PointY="3.375" />
         <EntityTypeShape EntityType="Database1Model.SessionTable" Width="1.5" PointX="8.25" PointY="0.625" />
         <AssociationConnector Association="Database1Model.FK_SessionTable_ToCustomer" />
+        <EntityTypeShape EntityType="Database1Model.Table" Width="1.375" PointX="0.75" PointY="0.75" />
+        <EntityTypeShape EntityType="Database1Model.Topping" Width="1.375" PointX="2.75" PointY="0.75" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>
