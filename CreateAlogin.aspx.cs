@@ -21,15 +21,15 @@ namespace Software_project
             if (NewPassword.Text == Renter.Text)
             {
                 Database1Entities db = new Database1Entities();
-               // var dbUserLogin = db.UserLogins;
+               var dbUserLogin = db.UserLogins;
 
                 var newUserLogin = new UserLogin();
 
-               // newUserLogin.FirstName = FirstName.Text;
-                //newUserLogin.SecondName = SecondName.Text;
-                //newOrder.Password = NewPassword.Text;
+               newUserLogin.FirstName = FirstName.Text;
+               newUserLogin.LastName = SecondName.Text;
+               newUserLogin.Password = NewPassword.Text;
 
-               // dbOrders.Add(newOrder);
+               dbUserLogin.Add(newUserLogin);
                 db.SaveChanges();
 
                 Response.Redirect("UserLogin.aspx");
