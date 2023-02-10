@@ -10,18 +10,8 @@
             <PropertyRef Name="CustomerID" />
           </Key>
           <Property Name="CustomerID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
-          <Property Name="FirstName" Type="varchar" MaxLength="50" />
+          <Property Name="FirstName" Type="int" Nullable="false" />
           <Property Name="SecondName" Type="varchar" MaxLength="50" />
-          <Property Name="DOB" Type="datetime" />
-        </EntityType>
-        <EntityType Name="EmployersTables">
-          <Key>
-            <PropertyRef Name="Id" />
-          </Key>
-          <Property Name="Id" Type="int" Nullable="false" />
-          <Property Name="Payment_method" Type="varchar" MaxLength="50" />
-          <Property Name="Total" Type="decimal" Precision="10" Scale="4" />
-          <Property Name="OrderID" Type="int" Nullable="false" />
         </EntityType>
         <EntityType Name="Orders">
           <Key>
@@ -29,52 +19,39 @@
           </Key>
           <Property Name="OrderID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="Price" Type="varchar" MaxLength="50" />
-          <Property Name="Name" Type="varchar" MaxLength="50" />
-          <Property Name="CollectionTime_" Type="datetime" />
+          <Property Name="FirstName" Type="varchar" MaxLength="50" />
+          <Property Name="SecondName" Type="varchar" MaxLength="50" />
+          <Property Name="CollectionTime" Type="smalldatetime" />
+          <Property Name="Password" Type="varchar" MaxLength="50" />
         </EntityType>
-        <EntityType Name="SessionTables">
-          <Key>
-            <PropertyRef Name="UsernameID" />
-          </Key>
-          <Property Name="UsernameID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
-          <Property Name="PasswordID" Type="varchar" MaxLength="50" />
-          <Property Name="CustomerID" Type="int" Nullable="false" />
-        </EntityType>
-        <EntityType Name="Table">
+        <EntityType Name="UserLogin">
           <Key>
             <PropertyRef Name="Id" />
           </Key>
-          <Property Name="Id" Type="int" Nullable="false" />
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="FirstName" Type="varchar" MaxLength="50" />
+          <Property Name="LastName" Type="varchar" MaxLength="50" />
+          <Property Name="Password" Type="varchar" MaxLength="50" />
         </EntityType>
-        <EntityType Name="Toppings">
-          <Key>
-            <PropertyRef Name="ToppingID" />
-          </Key>
-          <Property Name="ToppingID" Type="varchar" MaxLength="50" Nullable="false" />
-          <Property Name="OrderID" Type="nchar" MaxLength="10" />
-        </EntityType>
-        <Association Name="FK_SessionTable_ToCustomer">
-          <End Role="Customers" Type="Self.Customers" Multiplicity="1" />
-          <End Role="SessionTables" Type="Self.SessionTables" Multiplicity="*" />
+        <Association Name="FK_Customers_ToOrders">
+          <End Role="Orders" Type="Self.Orders" Multiplicity="1" />
+          <End Role="Customers" Type="Self.Customers" Multiplicity="*" />
           <ReferentialConstraint>
-            <Principal Role="Customers">
-              <PropertyRef Name="CustomerID" />
+            <Principal Role="Orders">
+              <PropertyRef Name="OrderID" />
             </Principal>
-            <Dependent Role="SessionTables">
-              <PropertyRef Name="CustomerID" />
+            <Dependent Role="Customers">
+              <PropertyRef Name="FirstName" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
         <EntityContainer Name="Database1ModelStoreContainer">
           <EntitySet Name="Customers" EntityType="Self.Customers" Schema="dbo" store:Type="Tables" />
-          <EntitySet Name="EmployersTables" EntityType="Self.EmployersTables" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Orders" EntityType="Self.Orders" Schema="dbo" store:Type="Tables" />
-          <EntitySet Name="SessionTables" EntityType="Self.SessionTables" Schema="dbo" store:Type="Tables" />
-          <EntitySet Name="Table" EntityType="Self.Table" Schema="dbo" store:Type="Tables" />
-          <EntitySet Name="Toppings" EntityType="Self.Toppings" Schema="dbo" store:Type="Tables" />
-          <AssociationSet Name="FK_SessionTable_ToCustomer" Association="Self.FK_SessionTable_ToCustomer">
+          <EntitySet Name="UserLogin" EntityType="Self.UserLogin" Schema="dbo" store:Type="Tables" />
+          <AssociationSet Name="FK_Customers_ToOrders" Association="Self.FK_Customers_ToOrders">
+            <End Role="Orders" EntitySet="Orders" />
             <End Role="Customers" EntitySet="Customers" />
-            <End Role="SessionTables" EntitySet="SessionTables" />
           </AssociationSet>
         </EntityContainer>
       </Schema></edmx:StorageModels>
@@ -83,34 +60,21 @@
       <Schema Namespace="Database1Model" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
         <EntityContainer Name="Database1Entities" annotation:LazyLoadingEnabled="true">
           <EntitySet Name="Customers" EntityType="Database1Model.Customer" />
-          <EntitySet Name="EmployersTables" EntityType="Database1Model.EmployersTable" />
           <EntitySet Name="Orders" EntityType="Database1Model.Order" />
-          <EntitySet Name="SessionTables" EntityType="Database1Model.SessionTable" />
-          <AssociationSet Name="FK_SessionTable_ToCustomer" Association="Database1Model.FK_SessionTable_ToCustomer">
+          <AssociationSet Name="FK_Customers_ToOrders" Association="Database1Model.FK_Customers_ToOrders">
+            <End Role="Order" EntitySet="Orders" />
             <End Role="Customer" EntitySet="Customers" />
-            <End Role="SessionTable" EntitySet="SessionTables" />
           </AssociationSet>
-          <EntitySet Name="Tables" EntityType="Database1Model.Table" />
-          <EntitySet Name="Toppings" EntityType="Database1Model.Topping" />
+          <EntitySet Name="UserLogins" EntityType="Database1Model.UserLogin" />
         </EntityContainer>
         <EntityType Name="Customer">
           <Key>
             <PropertyRef Name="CustomerID" />
           </Key>
           <Property Name="CustomerID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="FirstName" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="FirstName" Type="Int32" Nullable="false" />
           <Property Name="SecondName" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
-          <Property Name="DOB" Type="DateTime" Precision="3" />
-          <NavigationProperty Name="SessionTables" Relationship="Database1Model.FK_SessionTable_ToCustomer" FromRole="Customer" ToRole="SessionTable" />
-        </EntityType>
-        <EntityType Name="EmployersTable">
-          <Key>
-            <PropertyRef Name="Id" />
-          </Key>
-          <Property Name="Id" Type="Int32" Nullable="false" />
-          <Property Name="Payment_method" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
-          <Property Name="Total" Type="Decimal" Precision="10" Scale="4" />
-          <Property Name="OrderID" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="Order" Relationship="Database1Model.FK_Customers_ToOrders" FromRole="Customer" ToRole="Order" />
         </EntityType>
         <EntityType Name="Order">
           <Key>
@@ -118,105 +82,73 @@
           </Key>
           <Property Name="OrderID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="Price" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
-          <Property Name="Name" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
-          <Property Name="CollectionTime_" Type="DateTime" Precision="3" />
+          <Property Name="FirstName" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="SecondName" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="CollectionTime" Type="DateTime" Precision="0" />
+          <Property Name="Password" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="Customers" Relationship="Database1Model.FK_Customers_ToOrders" FromRole="Order" ToRole="Customer" />
         </EntityType>
-        <EntityType Name="SessionTable">
-          <Key>
-            <PropertyRef Name="UsernameID" />
-          </Key>
-          <Property Name="UsernameID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="PasswordID" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
-          <Property Name="CustomerID" Type="Int32" Nullable="false" />
-          <NavigationProperty Name="Customer" Relationship="Database1Model.FK_SessionTable_ToCustomer" FromRole="SessionTable" ToRole="Customer" />
-        </EntityType>
-        <Association Name="FK_SessionTable_ToCustomer">
-          <End Type="Database1Model.Customer" Role="Customer" Multiplicity="1" />
-          <End Type="Database1Model.SessionTable" Role="SessionTable" Multiplicity="*" />
+        <Association Name="FK_Customers_ToOrders">
+          <End Type="Database1Model.Order" Role="Order" Multiplicity="1" />
+          <End Type="Database1Model.Customer" Role="Customer" Multiplicity="*" />
           <ReferentialConstraint>
-            <Principal Role="Customer">
-              <PropertyRef Name="CustomerID" />
+            <Principal Role="Order">
+              <PropertyRef Name="OrderID" />
             </Principal>
-            <Dependent Role="SessionTable">
-              <PropertyRef Name="CustomerID" />
+            <Dependent Role="Customer">
+              <PropertyRef Name="FirstName" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <EntityType Name="Table">
+        <EntityType Name="UserLogin">
           <Key>
             <PropertyRef Name="Id" />
           </Key>
-          <Property Name="Id" Type="Int32" Nullable="false" />
-        </EntityType>
-        <EntityType Name="Topping">
-          <Key>
-            <PropertyRef Name="ToppingID" />
-          </Key>
-          <Property Name="ToppingID" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
-          <Property Name="OrderID" Type="String" MaxLength="10" FixedLength="true" Unicode="true" />
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="FirstName" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="LastName" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="Password" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
         </EntityType>
       </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
     <edmx:Mappings>
-    <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
-  <EntityContainerMapping StorageEntityContainer="Database1ModelStoreContainer" CdmEntityContainer="Database1Entities">
-    <EntitySetMapping Name="Customers">
-      <EntityTypeMapping TypeName="IsTypeOf(Database1Model.Customer)">
-        <MappingFragment StoreEntitySet="Customers">
-          <ScalarProperty Name="CustomerID" ColumnName="CustomerID" />
-          <ScalarProperty Name="FirstName" ColumnName="FirstName" />
-          <ScalarProperty Name="SecondName" ColumnName="SecondName" />
-          <ScalarProperty Name="DOB" ColumnName="DOB" />
-        </MappingFragment>
-      </EntityTypeMapping>
-    </EntitySetMapping>
-    <EntitySetMapping Name="EmployersTables">
-      <EntityTypeMapping TypeName="IsTypeOf(Database1Model.EmployersTable)">
-        <MappingFragment StoreEntitySet="EmployersTables">
-          <ScalarProperty Name="Id" ColumnName="Id" />
-          <ScalarProperty Name="Payment_method" ColumnName="Payment_method" />
-          <ScalarProperty Name="Total" ColumnName="Total" />
-          <ScalarProperty Name="OrderID" ColumnName="OrderID" />
-        </MappingFragment>
-      </EntityTypeMapping>
-    </EntitySetMapping>
-    <EntitySetMapping Name="Orders">
-      <EntityTypeMapping TypeName="IsTypeOf(Database1Model.Order)">
-        <MappingFragment StoreEntitySet="Orders">
-          <ScalarProperty Name="OrderID" ColumnName="OrderID" />
-          <ScalarProperty Name="Price" ColumnName="Price" />
-          <ScalarProperty Name="Name" ColumnName="Name" />
-          <ScalarProperty Name="CollectionTime_" ColumnName="CollectionTime_" />
-        </MappingFragment>
-      </EntityTypeMapping>
-    </EntitySetMapping>
-    <EntitySetMapping Name="SessionTables">
-      <EntityTypeMapping TypeName="IsTypeOf(Database1Model.SessionTable)">
-        <MappingFragment StoreEntitySet="SessionTables">
-          <ScalarProperty Name="UsernameID" ColumnName="UsernameID" />
-          <ScalarProperty Name="PasswordID" ColumnName="PasswordID" />
-          <ScalarProperty Name="CustomerID" ColumnName="CustomerID" />
-        </MappingFragment>
-      </EntityTypeMapping>
-    </EntitySetMapping>
-          <EntitySetMapping Name="Tables">
-            <EntityTypeMapping TypeName="Database1Model.Table">
-              <MappingFragment StoreEntitySet="Table">
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="Database1ModelStoreContainer" CdmEntityContainer="Database1Entities">
+          <EntitySetMapping Name="Customers">
+            <EntityTypeMapping TypeName="Database1Model.Customer">
+              <MappingFragment StoreEntitySet="Customers">
+                <ScalarProperty Name="SecondName" ColumnName="SecondName" />
+                <ScalarProperty Name="FirstName" ColumnName="FirstName" />
+                <ScalarProperty Name="CustomerID" ColumnName="CustomerID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Orders">
+            <EntityTypeMapping TypeName="Database1Model.Order">
+              <MappingFragment StoreEntitySet="Orders">
+                <ScalarProperty Name="Password" ColumnName="Password" />
+                <ScalarProperty Name="CollectionTime" ColumnName="CollectionTime" />
+                <ScalarProperty Name="SecondName" ColumnName="SecondName" />
+                <ScalarProperty Name="FirstName" ColumnName="FirstName" />
+                <ScalarProperty Name="Price" ColumnName="Price" />
+                <ScalarProperty Name="OrderID" ColumnName="OrderID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="UserLogins">
+            <EntityTypeMapping TypeName="Database1Model.UserLogin">
+              <MappingFragment StoreEntitySet="UserLogin">
+                <ScalarProperty Name="Password" ColumnName="Password" />
+                <ScalarProperty Name="LastName" ColumnName="LastName" />
+                <ScalarProperty Name="FirstName" ColumnName="FirstName" />
                 <ScalarProperty Name="Id" ColumnName="Id" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
-          <EntitySetMapping Name="Toppings">
-            <EntityTypeMapping TypeName="Database1Model.Topping">
-              <MappingFragment StoreEntitySet="Toppings">
-                <ScalarProperty Name="OrderID" ColumnName="OrderID" />
-                <ScalarProperty Name="ToppingID" ColumnName="ToppingID" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
-  </EntityContainerMapping>
-</Mapping></edmx:Mappings>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
   </edmx:Runtime>
   <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
   <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
@@ -230,7 +162,7 @@
         <DesignerProperty Name="ValidateOnBuild" Value="true" />
         <DesignerProperty Name="EnablePluralization" Value="true" />
         <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
-        <DesignerProperty Name="UseLegacyProvider" Value="False" />
+        <DesignerProperty Name="UseLegacyProvider" Value="false" />
         <DesignerProperty Name="CodeGenerationStrategy" Value="None" />
       </DesignerInfoPropertySet>
     </Options>

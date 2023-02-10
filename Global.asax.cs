@@ -12,5 +12,27 @@ namespace Software_project
         protected void Application_Start(object sender, EventArgs e)
         {
         }
+         
+        protected void Session_Start(Object sender,EventArgs e)
+        {
+            Session["Logged"] = "No";
+
+            Session["First Name"] = "";
+
+            Session["Last Name"] = "";
+
+            Session["Password"] = "";
+
+            Session["UserID"] = "";
+
+            Session["AcessLeve1"] = "";
+
+            Session["URL"] = "default.aspx";
+        }
+    
+    
     }
+
 }
+
+

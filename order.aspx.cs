@@ -45,7 +45,7 @@ namespace Software_project
 
             var newOrder = new Order();
 
-            newOrder.Name = lblNamePrice2.Text;
+            newOrder.FirstName = lblNamePrice2.Text;
             newOrder.Price = txtTotal.Text;
 
             dbOrder.Add(newOrder);
@@ -78,7 +78,7 @@ namespace Software_project
 
             var newOrder = new Order();
 
-            newOrder.Name = lblNamePrice.Text;
+            newOrder.FirstName = lblNamePrice.Text;
             newOrder.Price = txtTotal.Text;
 
             dbOrder.Add(newOrder);
@@ -89,6 +89,8 @@ namespace Software_project
         {
 
         }
+
+        
     }
 
  }
