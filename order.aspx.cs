@@ -16,7 +16,12 @@ namespace Software_project
         String x;
         protected void Page_Load(object sender, EventArgs e)
         {
+            string LoggedIn = Session["Logged"].ToString();
 
+            if (LoggedIn == "Yes")
+            {
+                Response.Redirect("UserLogin.aspx");
+            }
         }
 
         protected void btnAddP_Click(object sender, EventArgs e)

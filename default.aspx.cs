@@ -16,38 +16,33 @@ namespace Software_project
 
         protected void LinkButton1_Click(object sender, EventArgs e)
         {
-            
+
         }
 
         protected void Button1_Click(object sender, EventArgs e)
         {
-            String FirstName = Session["First Name"].ToString();
-            String LastName = Session["Last Name"].ToString();
-            String Password = Session["Password"].ToString();
 
 
 
-            Database1Entities db = new Database1Entities();
-            var dbOrders = db.Orders;
-
-            var order = new Order();
-
-            foreach (var customer in dbOrders)
-            {
-                if (FirstName == order.FirstName && LastName == order.SecondName && Password == order.Password)
-                {
-                    Response.Redirect("order.aspx");
-                }
-                else
-                {
-                    Response.Redirect("UserLogin.aspx");
-                }
-            }
         }
 
         protected void LinkButton2_Click(object sender, EventArgs e)
         {
-            Response.Redirect("order.aspx");
+            string logged = Session["Logged"].ToString();
+
+ 
+
+   
+            
+            if (logged == "Yes")
+            {
+                 Response.Redirect("order.aspx");
+            }
+            else
+            {
+                 Response.Redirect("UserLogin.aspx");
+            }
+            
         }
     }
 }

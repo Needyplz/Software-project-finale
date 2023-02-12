@@ -17,17 +17,7 @@ namespace Software_project
         {
             Session["Logged"] = "No";
 
-            Session["First Name"] = "";
 
-            Session["Last Name"] = "";
-
-            Session["Password"] = "";
-
-            Session["UserID"] = "";
-
-            Session["AcessLeve1"] = "";
-
-            Session["URL"] = "default.aspx";
         }
     
     
